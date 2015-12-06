@@ -30,7 +30,7 @@ public class CleanMyHouse {
                 .set("card.expYear", 19)
                 .set("card.number", "5555555555554444")
                 .set("amount", 5000) // In cents e.g. $10.00
-                .set("description", "Hitching a ride");
+                .set("description", "Clean this shit up!");
 
         Payment payment = Payment.create(paymentsMap);
 
