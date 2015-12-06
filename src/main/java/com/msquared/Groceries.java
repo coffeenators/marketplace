@@ -5,10 +5,10 @@ import com.simplify.payments.PaymentsMap;
 import com.simplify.payments.domain.Payment;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.Map;
 
 /**
@@ -17,13 +17,15 @@ import java.util.Map;
 @Component
 @Path("/groceries")
 @Produces(MediaType.APPLICATION_JSON)
-public class Groceries {
+public class Groceries implements HouseService {
 
-    @GET
-    public boolean groceries() throws Exception {
+    @Override
+    public Response serveMe() throws Exception {
 
         PaymentsApi.PRIVATE_KEY = "chc5J5yNW2uMTJE+McIsHXK08TUy1DCgjNzDwCS8mZd5YFFQL0ODSXAOkNtXTToq";
         PaymentsApi.PUBLIC_KEY = "sbpb_OTQ5YjczMTQtMmQzNy00ZGIwLWExZDgtMzY0ZGQ5ODcxNjNh";
+        MSquaredResponse response = new MSquaredResponse();
+
         Map paymentsMap = new PaymentsMap()
                 .set("currency", "USD")
                 .set("card.cvc", "123")
@@ -37,9 +39,16 @@ public class Groceries {
 
         if ("APPROVED".equals(payment.get("paymentStatus"))) {
             System.out.println("Payment approved");
-            return true;
+            response.setServiceStatus("Be my Butler!");
         }
 
-        return false;
+        response.setServiceStatus("Epic Fail!");
+
+        return Response.ok() //200
+                .entity(response)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type")
+                .allow("OPTIONS").build();
     }
 }
