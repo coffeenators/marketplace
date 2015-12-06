@@ -15,7 +15,7 @@ import java.util.Map;
  * Created by S on 12/5/15.
  */
 @Component
-@Path("/feedMe")
+@Path("/groceries")
 @Produces(MediaType.APPLICATION_JSON)
 public class Groceries {
 
