@@ -32,7 +32,7 @@ public class FeedMe {
                 .set("card.expYear", 19)
                 .set("card.number", "5555555555554444")
                 .set("amount", 2500) // In cents e.g. $10.00
-                .set("description", "Hitching a ride");
+                .set("description", "Feed Me");
 
         Payment payment = Payment.create(paymentsMap);
 
